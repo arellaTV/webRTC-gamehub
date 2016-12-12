@@ -62,7 +62,6 @@ Board.prototype.dropPiece = function(column) {
   if (startingNode.contents !== 'empty') { return };
 
   var drop = function(node) {
-    console.log(node);
     if (node.vertical.down === null || node.vertical.down.contents !== 'empty') {
       node.contents = currentPlayer;
       return;
