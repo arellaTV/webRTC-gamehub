@@ -54,3 +54,7 @@ Board.prototype.build = function(rows, columns) {
     }
   }
 };
+
+Board.prototype.destroy = function() {
+  this.nodes = {};
+};
