@@ -1,6 +1,10 @@
-var Board = function(columns, rows) {
+var Board = function(rows, columns) {
   this.slots = {};
   this.currentPlayer = 'red';
   this.winner = null;
-  if (columns && rows) { this.build(columns, rows) };
+  if (rows && columns) { this.build(rows, columns) };
+}
+
+Board.prototype.addNode = function(node) {
+  this.nodes[node.id] = node;
 }
