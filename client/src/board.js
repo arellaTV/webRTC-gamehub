@@ -20,3 +20,11 @@ Board.prototype.addEdge = function(node1, node2, orientation) {
     this.nodes[node2.id][orientation][direction1] = node1;
   };
 };
+
+board.prototype.show = function(entity) {
+  if (entity === 'all') {
+    return this.nodes;
+  } else {
+    return this.nodes[entity]['contents'];
+  }
+};
