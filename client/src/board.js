@@ -1,6 +1,6 @@
 var Board = function(rows, columns) {
   this.nodes = {};
-  this.currentPlayer = 'red';
+  this.currentPlayer = 'one';
   this.winner = null;
   if (rows && columns) { this.build(rows, columns) };
 }
@@ -28,3 +28,11 @@ board.prototype.show = function(entity) {
     return this.nodes[entity]['contents'];
   }
 };
+
+board.prototype.switchPlayers = function() {
+  if (this.currentPlayer === 'one') {
+    this.currentPlayer = 'two';
+  } else {
+    this.currentPlayer = 'one';
+  }
+}
