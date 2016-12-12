@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/arellaTV/webRTC-gamehub/issues"
   },
-  "homepage": "https://github.com/arellaTV/webRTC-gamehub#readme"
+  "homepage": "https://github.com/arellaTV/webRTC-gamehub#readme",
+  "dependencies": {
+    "pixi.js": "^4.2.3"
+  }
 }
