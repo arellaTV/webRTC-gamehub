@@ -1,3 +1,10 @@
+var validationLUT = {
+  horizontally: ['left','right'],
+  vertically: ['down', 'up'],
+  forwardDiagonal: ['upright', 'downleft'],
+  backwardDiagonal: ['upleft', 'downright']
+};
+
 var Node = function(row, column) {
   return {
     row: row,

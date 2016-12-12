@@ -11,3 +11,8 @@ Board.prototype.addNode = function(node) {
   box.id = node.id;
   box.className = 'box';
 }
+
+Board.prototype.addEdge = function(node1, node2, orientation) {
+  if (node1 && node2) {
+  }
+}
