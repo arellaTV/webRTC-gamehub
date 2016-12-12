@@ -4,13 +4,21 @@ var Node = function(row, column) {
     column: column,
     id: `${row}${column}`,
     contents: 'empty',
-    up: null,
-    down: null,
-    left: null,
-    right: null,
-    upleft: null,
-    upright: null,
-    downleft: null,
-    downright: null
+    vertical: {
+      up: null,
+      down: null,
+    },
+    horizontal: {
+      left: null,
+      right: null,
+    },
+    right_diagonal: {
+      upright: null,
+      downleft: null,
+    },
+    left_diagonal: {
+      upleft: null,
+      downright: null
+    },
   };
 };
