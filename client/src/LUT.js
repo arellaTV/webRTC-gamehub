@@ -1,8 +1,8 @@
 var orientationLUT = {
   horizontal: ['left','right'],
   vertical: ['up', 'down'],
-  forwardDiagonal: ['upright', 'downleft'],
-  backwardDiagonal: ['upleft', 'downright']
+  right_diagonal: ['upright', 'downleft'],
+  left_diagonal: ['upleft', 'downright']
 };
 
 var Node = function(row, column) {

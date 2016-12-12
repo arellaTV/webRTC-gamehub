@@ -5,11 +5,27 @@ var Board = function(rows, columns) {
   if (rows && columns) { this.build(rows, columns) };
 }
 
+Board.prototype.show = function(entity) {
+  if (entity) {
+    return this.nodes[entity]['contents'];
+  } else {
+    return this.nodes;
+  }
+};
+
+Board.prototype.switchPlayers = function() {
+  if (this.currentPlayer === 'one') {
+    this.currentPlayer = 'two';
+  } else {
+    this.currentPlayer = 'one';
+  }
+};
+
 Board.prototype.addNode = function(node) {
   this.nodes[node.id] = node;
-  var box = document.createElement('DIV');
-  box.id = node.id;
-  box.className = 'box';
+  // var box = document.createElement('DIV');
+  // box.id = node.id;
+  // box.className = 'box';
 }
 
 Board.prototype.addEdge = function(node1, node2, orientation) {
@@ -21,18 +37,20 @@ Board.prototype.addEdge = function(node1, node2, orientation) {
   };
 };
 
-board.prototype.show = function(entity) {
-  if (entity === 'all') {
-    return this.nodes;
-  } else {
-    return this.nodes[entity]['contents'];
+Board.prototype.build = function(rows, columns) {
+  for (var i = 1; i <= rows; i++) {
+    for (var j = 1; j<= columns; j++) {
+      this.addNode(Node(i,j));
+    }
+  }
+
+
+  for (var k = 1; k <= rows; k++) {
+    for (var l = 1; l <= columns; l++) {
+      this.addEdge(this.nodes[`${k}${l}`], this.nodes[`${k+1}${l+1}`], 'left_diagonal');
+      this.addEdge(this.nodes[`${k}${l}`], this.nodes[`${k}${l+1}`], 'horizontal');
+      this.addEdge(this.nodes[`${k}${l}`], this.nodes[`${k+1}${l}`], 'vertical');
+      this.addEdge(this.nodes[`${k}${l}`], this.nodes[`${k+1}${l-1}`], 'right_diagonal');
+    }
   }
 };
-
-board.prototype.switchPlayers = function() {
-  if (this.currentPlayer === 'one') {
-    this.currentPlayer = 'two';
-  } else {
-    this.currentPlayer = 'one';
-  }
-}
