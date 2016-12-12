@@ -1,6 +1,6 @@
-var validationLUT = {
-  horizontally: ['left','right'],
-  vertically: ['down', 'up'],
+var orientationLUT = {
+  horizontal: ['left','right'],
+  vertical: ['up', 'down'],
   forwardDiagonal: ['upright', 'downleft'],
   backwardDiagonal: ['upleft', 'downright']
 };
