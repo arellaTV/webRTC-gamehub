@@ -23,9 +23,6 @@ Board.prototype.switchPlayers = function() {
 
 Board.prototype.addNode = function(node) {
   this.nodes[node.id] = node;
-  // var box = document.createElement('DIV');
-  // box.id = node.id;
-  // box.className = 'box';
 }
 
 Board.prototype.addEdge = function(node1, node2, orientation) {
