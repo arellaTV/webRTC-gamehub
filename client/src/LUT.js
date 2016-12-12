@@ -29,3 +29,5 @@ var Node = function(row, column) {
     },
   };
 };
+
+export { orientationLUT, Node };

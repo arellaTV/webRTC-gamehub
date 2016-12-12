@@ -1,3 +1,5 @@
+import { orientationLUT, Node } from './LUT';
+
 var Board = function(rows, columns) {
   this.nodes = {};
   this.currentPlayer = 'one';
@@ -71,3 +73,5 @@ Board.prototype.dropPiece = function(column) {
 
   drop(startingNode);
 };
+
+export default Board;
