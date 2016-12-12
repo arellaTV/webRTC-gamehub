@@ -58,3 +58,20 @@ Board.prototype.build = function(rows, columns) {
 Board.prototype.destroy = function() {
   this.nodes = {};
 };
+
+Board.prototype.dropPiece = function(column) {
+  var currentPlayer = this.currentPlayer;
+  var startingNode = this.nodes[`1${column}`];
+  if (startingNode.contents !== 'empty') { return };
+
+  var drop = function(node) {
+    console.log(node);
+    if (node.vertical.down === null || node.vertical.down.contents !== 'empty') {
+      node.contents = currentPlayer;
+      return;
+    }
+    drop(node.vertical.down);
+  };
+
+  drop(startingNode);
+};
