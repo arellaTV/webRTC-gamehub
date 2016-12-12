@@ -7,4 +7,7 @@ var Board = function(rows, columns) {
 
 Board.prototype.addNode = function(node) {
   this.nodes[node.id] = node;
+  var box = document.createElement('DIV');
+  box.id = node.id;
+  box.className = 'box';
 }
