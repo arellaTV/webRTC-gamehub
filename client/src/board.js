@@ -1,5 +1,5 @@
 var Board = function(rows, columns) {
-  this.slots = {};
+  this.nodes = {};
   this.currentPlayer = 'red';
   this.winner = null;
   if (rows && columns) { this.build(rows, columns) };
