@@ -29,7 +29,7 @@ var Node = function(row, column) {
     },
     coordinates: {
       x: (column * 64) - 32,
-      y: (row * 64) + 128,
+      y: (row * 64) + 256,
     }
   };
 };

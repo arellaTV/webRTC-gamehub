@@ -1,6 +1,6 @@
 var PIXI = require('pixi.js');
 
-var renderer = new PIXI.WebGLRenderer(448,600);
+var renderer = new PIXI.WebGLRenderer(448,796, { backgroundColor: 0xFFFFFF });
 var rendererDOM = renderer.view;
 rendererDOM.id = 'renderer';
 document.body.appendChild(rendererDOM);
