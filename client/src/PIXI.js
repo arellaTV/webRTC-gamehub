@@ -1,7 +1,9 @@
 var PIXI = require('pixi.js');
 
-var renderer = new PIXI.WebGLRenderer(800,600);
-document.body.appendChild(renderer.view);
+var renderer = new PIXI.WebGLRenderer(448,600);
+var rendererDOM = renderer.view;
+rendererDOM.id = 'renderer';
+document.body.appendChild(rendererDOM);
 var stage = new PIXI.Container();
 
 var board_tile_texture = PIXI.Texture.fromImage('assets/images/board_tile.png');

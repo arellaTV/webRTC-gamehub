@@ -28,8 +28,8 @@ var Node = function(row, column) {
       downright: null
     },
     coordinates: {
-      x: column * 64,
-      y: row * 64,
+      x: (column * 64) - 32,
+      y: (row * 64) + 128,
     }
   };
 };
