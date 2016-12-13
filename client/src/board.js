@@ -1,11 +1,18 @@
 import { orientationLUT, Node } from './LUT';
-import { stage, textures } from './PIXI';
+import { stage, textures, renderer } from './PIXI';
 
 var Board = function(rows, columns) {
   this.nodes = {};
+  this.currentSprite = {};
   this.currentPlayer = 'one';
   this.winner = null;
   if (rows && columns) { this.build(rows, columns) };
+
+  this.floatSprite(this.currentPlayer);
+  renderer.plugins.interaction.on('mousemove',(data) => {
+    var mouse = data.data.global;
+    this.updatePosition(mouse, that.currentSprite);
+  });
 }
 
 Board.prototype.show = function(entity) {
@@ -82,5 +89,21 @@ Board.prototype.dropPiece = function(column) {
 
   drop(startingNode);
 };
+
+Board.prototype.floatSprite = function(player_string) {
+  var player = new PIXI.Sprite(textures[`player_${player_string}_texture`]);
+  player.anchor.x = 0.5;
+  player.anchor.y = 0.5;
+  player.scale.x = 0.5;
+  player.scale.y = 0.5;
+  player.position.y = 240;
+  this.currentSprite = player;
+  stage.addChild(player);
+}
+
+Board.prototype.updatePosition = function(mouse, player) {
+  console.log(mouse, player);
+  player.position.x = mouse.x;
+}
 
 export default Board;
