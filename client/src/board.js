@@ -6,12 +6,18 @@ var Board = function(rows, columns) {
   this.currentSprite = {};
   this.currentPlayer = 'one';
   this.winner = null;
+  var that = this;
   if (rows && columns) { this.build(rows, columns) };
 
   this.floatSprite(this.currentPlayer);
   renderer.plugins.interaction.on('mousemove',(data) => {
     var mouse = data.data.global;
     this.updatePosition(mouse, that.currentSprite);
+  });
+
+  renderer.plugins.interaction.on('mousedown',(data) => {
+    var mouse = data.data.global;
+    this.dropPiece(mouse, that.currentSprite);
   });
 }
 
@@ -40,6 +46,7 @@ Board.prototype.addNode = function(node) {
   board_tile.scale.y = 0.5;
   board_tile.position.x = node.coordinates.x;
   board_tile.position.y = node.coordinates.y;
+  board_tile.zOrder = 1;
   stage.addChild(board_tile);
 }
 
@@ -74,7 +81,14 @@ Board.prototype.destroy = function() {
   this.nodes = {};
 };
 
-Board.prototype.dropPiece = function(column) {
+var fall = function(sprite) {
+  sprite.position.y += 10;
+  requestAnimationFrame(fall.bind(this, sprite));
+}
+
+Board.prototype.dropPiece = function(mouse, sprite) {
+  var column = Math.ceil(mouse.x / 64);
+  fall(sprite);
   var currentPlayer = this.currentPlayer;
   var startingNode = this.nodes[`1${column}`];
   if (startingNode.contents !== 'empty') { return };
@@ -97,13 +111,13 @@ Board.prototype.floatSprite = function(player_string) {
   player.scale.x = 0.5;
   player.scale.y = 0.5;
   player.position.y = 240;
+  player.zOrder = 0;
   this.currentSprite = player;
   stage.addChild(player);
 }
 
-Board.prototype.updatePosition = function(mouse, player) {
-  console.log(mouse, player);
-  player.position.x = mouse.x;
+Board.prototype.updatePosition = function(mouse, sprite) {
+  sprite.position.x = mouse.x;
 }
 
 export default Board;
