@@ -1,4 +1,5 @@
 import { orientationLUT, Node } from './LUT';
+import { stage, textures } from './PIXI';
 
 var Board = function(rows, columns) {
   this.nodes = {};
@@ -25,6 +26,14 @@ Board.prototype.switchPlayers = function() {
 
 Board.prototype.addNode = function(node) {
   this.nodes[node.id] = node;
+  var board_tile = new PIXI.Sprite(textures.board_tile_texture);
+  board_tile.anchor.x = 0.5;
+  board_tile.anchor.y = 0.5;
+  board_tile.scale.x = 0.5;
+  board_tile.scale.y = 0.5;
+  board_tile.position.x = node.coordinates.x;
+  board_tile.position.y = node.coordinates.y;
+  stage.addChild(board_tile);
 }
 
 Board.prototype.addEdge = function(node1, node2, orientation) {

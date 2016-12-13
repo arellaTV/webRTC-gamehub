@@ -27,6 +27,10 @@ var Node = function(row, column) {
       upleft: null,
       downright: null
     },
+    coordinates: {
+      x: column * 64,
+      y: row * 64,
+    }
   };
 };
 
