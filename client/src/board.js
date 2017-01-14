@@ -97,13 +97,13 @@ Board.prototype.dropPiece = function(mouse, sprite) {
   var currentPlayer = this.currentPlayer;
   var startingNode = this.nodes[`1${column}`];
   if (startingNode.contents !== 'empty') { return };
-  var fall = this.fall.bind(this);
 
-  var drop = function(node) {
+  const drop = (node) => {
     if (node.vertical.down === null || node.vertical.down.contents !== 'empty') {
       var endCoordinates = node.coordinates;
       node.contents = currentPlayer;
-      fall(sprite, endCoordinates);
+
+      this.fall(sprite, endCoordinates);
       return;
     }
     drop(node.vertical.down);
@@ -128,6 +128,10 @@ Board.prototype.floatSprite = function(player_string) {
 
 Board.prototype.updatePosition = function(mouse, sprite) {
   sprite.position.x = mouse.x;
+}
+
+Board.prototype.declareWinner = function(winner) {
+  console.log(winner);
 }
 
 export default Board;
