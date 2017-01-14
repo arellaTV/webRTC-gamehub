@@ -1,5 +1,7 @@
 import { orientationLUT, Node } from './LUT';
 import { stage, textures, renderer } from './PIXI';
+var dropPieceSoundEffect = new Audio('assets/sounds/dropPiece.wav');
+var winnerSoundEffect = new Audio('assets/sounds/winner.wav');
 
 var Board = function(rows, columns) {
   this.nodes = {};
@@ -86,7 +88,8 @@ Board.prototype.fall = function(sprite, coordinates) {
   if (sprite.position.y < coordinates.y) {
     sprite.position.y += 8;
   } else {
-    sprite.position.y += 0;
+    sprite.position.y = coordinates.y;
+    dropPieceSoundEffect.play();
     return;
   }
   requestAnimationFrame(this.fall.bind(this, sprite, coordinates));
@@ -144,7 +147,7 @@ Board.prototype.highlightWinner = function(path) {
       sprite.texture = textures['winner'];
     }
   });
-  console.log(path);
+  winnerSoundEffect.play();
 }
 
 export default Board;
