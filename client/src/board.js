@@ -105,6 +105,7 @@ Board.prototype.dropPiece = function(mouse, sprite) {
       this.fall(sprite, endCoordinates);
       this.check(node, 'horizontal');
       this.check(node, 'vertical');
+      this.check(node, 'right_diagonal');
       return;
     }
     drop(node.vertical.down);
