@@ -1,4 +1,5 @@
 import Board from './board.js';
+import { orientationLUT } from './LUT.js';
 
 Board.prototype.check = function(startingSlot, orientation) {
   var direction1 = orientationLUT[orientation][0];

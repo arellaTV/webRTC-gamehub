@@ -102,8 +102,8 @@ Board.prototype.dropPiece = function(mouse, sprite) {
     if (node.vertical.down === null || node.vertical.down.contents !== 'empty') {
       var endCoordinates = node.coordinates;
       node.contents = currentPlayer;
-
       this.fall(sprite, endCoordinates);
+      this.check(node, 'horizontal');
       return;
     }
     drop(node.vertical.down);
@@ -131,7 +131,7 @@ Board.prototype.updatePosition = function(mouse, sprite) {
 }
 
 Board.prototype.declareWinner = function(winner) {
-  console.log(winner);
+  console.log(winner, 'wins!');
 }
 
 export default Board;
