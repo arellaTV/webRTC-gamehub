@@ -83,7 +83,6 @@ Board.prototype.destroy = function() {
 
 Board.prototype.fall = function(sprite, coordinates) {
   sprite.position.x = coordinates.x
-  console.log(coordinates.y);
   if (sprite.position.y < coordinates.y) {
     sprite.position.y += 8;
   } else {
@@ -98,26 +97,21 @@ Board.prototype.dropPiece = function(mouse, sprite) {
   var currentPlayer = this.currentPlayer;
   var startingNode = this.nodes[`1${column}`];
   if (startingNode.contents !== 'empty') { return };
-
-  var endCoordinates;
   var fall = this.fall.bind(this);
-  var switchPlayers = this.switchPlayers.bind(this);
-  var floatSprite = this.floatSprite.bind(this);
-  var currentPlayer = this.currentPlayer;
 
   var drop = function(node) {
     if (node.vertical.down === null || node.vertical.down.contents !== 'empty') {
-      endCoordinates = node.coordinates;
+      var endCoordinates = node.coordinates;
       node.contents = currentPlayer;
-      switchPlayers();
       fall(sprite, endCoordinates);
-      floatSprite(currentPlayer);
       return;
     }
     drop(node.vertical.down);
   };
 
   drop(startingNode);
+  this.switchPlayers();
+  this.floatSprite(this.currentPlayer);
 };
 
 Board.prototype.floatSprite = function(player_string) {
@@ -126,6 +120,7 @@ Board.prototype.floatSprite = function(player_string) {
   player.anchor.y = 0.5;
   player.scale.x = 0.5;
   player.scale.y = 0.5;
+  player.position.x = -100;
   player.position.y = 240;
   this.currentSprite = player;
   stage.addChildAt(player, 0);
