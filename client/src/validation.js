@@ -1,26 +1,33 @@
 import Board from './board.js';
 import { orientationLUT } from './LUT.js';
 
-Board.prototype.check = function(startingSlot, orientation) {
+Board.prototype.check = function(startingNode, orientation) {
   var direction1 = orientationLUT[orientation][0];
   var direction2 = orientationLUT[orientation][1];
   var total = 0;
-  var currentSlot = startingSlot;
+  var currentNode = startingNode;
+  var path = {};
+  path[currentNode.id] = currentNode.id;
 
-  while (currentSlot[orientation][direction1] !== null && currentSlot[orientation][direction1]['contents'] === this.currentPlayer) {
+  while (currentNode[orientation][direction1] !== null && currentNode[orientation][direction1]['contents'] === this.currentPlayer) {
     total++;
-    currentSlot = currentSlot[orientation][direction1];
+    var nextNode = currentNode[orientation][direction1];
+    path[nextNode.id] = nextNode.id;
+    currentNode = nextNode;
   }
 
-  currentSlot = startingSlot;
+  currentNode = startingNode;
 
-  while (currentSlot[orientation][direction2] !== null && currentSlot[orientation][direction2]['contents'] === this.currentPlayer) {
+  while (currentNode[orientation][direction2] !== null && currentNode[orientation][direction2]['contents'] === this.currentPlayer) {
     total++;
-    currentSlot = currentSlot[orientation][direction2];
+    var nextNode = currentNode[orientation][direction2];
+    path[nextNode.id] = nextNode.id;
+    currentNode = nextNode;
   }
 
   if (total + 1 >= 4) {
     this.declareWinner(this.currentPlayer);
+    this.highlightWinner(path);
   }
   return total + 1;
 }

@@ -103,6 +103,7 @@ Board.prototype.dropPiece = function(mouse, sprite) {
       var endCoordinates = node.coordinates;
       node.contents = currentPlayer;
       this.fall(sprite, endCoordinates);
+      sprite.id = `${node.row}${node.column}`
       this.check(node, 'horizontal');
       this.check(node, 'vertical');
       this.check(node, 'right_diagonal');
@@ -135,6 +136,15 @@ Board.prototype.updatePosition = function(mouse, sprite) {
 
 Board.prototype.declareWinner = function(winner) {
   console.log(winner, 'wins!');
+}
+
+Board.prototype.highlightWinner = function(path) {
+  stage.children.map(sprite => {
+    if (path[sprite.id]) {
+      sprite.texture = textures['winner'];
+    }
+  });
+  console.log(path);
 }
 
 export default Board;
