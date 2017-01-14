@@ -81,21 +81,37 @@ Board.prototype.destroy = function() {
   this.nodes = {};
 };
 
-var fall = function(sprite) {
-  sprite.position.y += 10;
-  requestAnimationFrame(fall.bind(this, sprite));
+Board.prototype.fall = function(sprite, coordinates) {
+  sprite.position.x = coordinates.x
+  console.log(coordinates.y);
+  if (sprite.position.y < coordinates.y) {
+    sprite.position.y += 8;
+  } else {
+    sprite.position.y += 0;
+    return;
+  }
+  requestAnimationFrame(this.fall.bind(this, sprite, coordinates));
 }
 
 Board.prototype.dropPiece = function(mouse, sprite) {
   var column = Math.ceil(mouse.x / 64);
-  fall(sprite);
   var currentPlayer = this.currentPlayer;
   var startingNode = this.nodes[`1${column}`];
   if (startingNode.contents !== 'empty') { return };
 
+  var endCoordinates;
+  var fall = this.fall.bind(this);
+  var switchPlayers = this.switchPlayers.bind(this);
+  var floatSprite = this.floatSprite.bind(this);
+  var currentPlayer = this.currentPlayer;
+
   var drop = function(node) {
     if (node.vertical.down === null || node.vertical.down.contents !== 'empty') {
+      endCoordinates = node.coordinates;
       node.contents = currentPlayer;
+      switchPlayers();
+      fall(sprite, endCoordinates);
+      floatSprite(currentPlayer);
       return;
     }
     drop(node.vertical.down);
@@ -111,9 +127,8 @@ Board.prototype.floatSprite = function(player_string) {
   player.scale.x = 0.5;
   player.scale.y = 0.5;
   player.position.y = 240;
-  player.zOrder = 0;
   this.currentSprite = player;
-  stage.addChild(player);
+  stage.addChildAt(player, 0);
 }
 
 Board.prototype.updatePosition = function(mouse, sprite) {
