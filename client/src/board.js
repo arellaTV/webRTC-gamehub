@@ -21,7 +21,9 @@ var Board = function(rows, columns) {
 
   renderer.plugins.interaction.on('mousedown',(data) => {
     var mouse = data.data.global;
-    this.dropPiece(mouse, that.currentSprite);
+    if (this.currentPlayer === 'one') {
+      this.dropPiece(mouse, that.currentSprite);
+    }
   });
 }
 
@@ -112,7 +114,8 @@ Board.prototype.dropPiece = function(mouse, sprite) {
       this.check(node, 'right_diagonal');
       this.check(node, 'left_diagonal');
       if (this.currentPlayer === 'one') {
-        if (this.opponentBlockFour(node) === false) {
+        var blockSuccessful = this.opponentBlockFour(node);
+        if (blockSuccessful === false) {
           this.opponentRandom();
         }
       }
@@ -135,7 +138,9 @@ Board.prototype.floatSprite = function(player_string) {
 }
 
 Board.prototype.updatePosition = function(mouse, sprite) {
-  sprite.position.x = mouse.x;
+  if (this.currentPlayer === 'one') {
+    sprite.position.x = mouse.x;
+  }
 }
 
 Board.prototype.declareWinner = function(winner) {
