@@ -2,6 +2,8 @@ import { orientationLUT, Node } from './LUT';
 import { stage, textures, renderer } from './PIXI';
 var dropPieceSoundEffect = new Audio('assets/sounds/dropPiece.wav');
 var winnerSoundEffect = new Audio('assets/sounds/winner.wav');
+dropPieceSoundEffect.volume = 0.5;
+winnerSoundEffect.volume = 0.1;
 
 var Board = function(rows, columns) {
   this.nodes = {};
@@ -82,8 +84,8 @@ Board.prototype.destroy = function() {
 
 Board.prototype.fall = function(sprite, coordinates) {
   sprite.position.x = coordinates.x
-  if (sprite.position.y < coordinates.y - 12) {
-    sprite.position.y *= 1.035;
+  if (sprite.position.y < coordinates.y - 32) {
+    sprite.position.y *= 1.1;
   } else {
     sprite.position.y = coordinates.y;
     dropPieceSoundEffect.play();
@@ -127,7 +129,7 @@ Board.prototype.floatSprite = function(player_string) {
   player.anchor.x = 0.5;
   player.anchor.y = 0.5;
   player.position.x = -100;
-  player.position.y = 240;
+  player.position.y = 48;
   this.currentSprite = player;
   stage.addChildAt(player, 0);
 }
