@@ -6,11 +6,13 @@ Board.prototype.opponentRandom = function() {
     console.log('dropping randomly!', random);
     var position = {};
     position.x = random;
-    this.switchPlayers();
-    this.floatSprite(this.currentPlayer);
-    this.dropPiece(position, this.currentSprite);
-    this.switchPlayers();
-    this.floatSprite(this.currentPlayer);
+    setTimeout(() => {
+      this.switchPlayers();
+      this.floatSprite(this.currentPlayer);
+      this.dropPiece(position, this.currentSprite);
+      this.switchPlayers();
+      this.floatSprite(this.currentPlayer);
+    },1000);
 }
 
 Board.prototype.opponentBlockFour = function(lastDrop) {
@@ -30,11 +32,13 @@ Board.prototype.opponentBlockFour = function(lastDrop) {
         var position = {};
         position.x = analysis[key].tail1.coordinates.x;
         console.log(position);
-        this.switchPlayers();
-        this.floatSprite(this.currentPlayer);
-        this.dropPiece(position, this.currentSprite);
-        this.switchPlayers();
-        this.floatSprite(this.currentPlayer);
+        setTimeout(() => {
+          this.switchPlayers();
+          this.floatSprite(this.currentPlayer);
+          this.dropPiece(position, this.currentSprite);
+          this.switchPlayers();
+          this.floatSprite(this.currentPlayer);
+        },1000);
         return true;
       }
       if (analysis[key].tail2) {
@@ -42,11 +46,13 @@ Board.prototype.opponentBlockFour = function(lastDrop) {
         var position = {};
         position.x = analysis[key].tail2.coordinates.x;
         console.log(position);
-        this.switchPlayers();
-        this.floatSprite(this.currentPlayer);
-        this.dropPiece(position, this.currentSprite);
-        this.switchPlayers();
-        this.floatSprite(this.currentPlayer);
+        setTimeout(() => {
+          this.switchPlayers();
+          this.floatSprite(this.currentPlayer);
+          this.dropPiece(position, this.currentSprite);
+          this.switchPlayers();
+          this.floatSprite(this.currentPlayer);
+        },1000);
         return true;
       }
     }
