@@ -44,11 +44,8 @@ Board.prototype.addNode = function(node) {
   var board_tile = new PIXI.Sprite(textures.board_tile_texture);
   board_tile.anchor.x = 0.5;
   board_tile.anchor.y = 0.5;
-  board_tile.scale.x = 0.5;
-  board_tile.scale.y = 0.5;
   board_tile.position.x = node.coordinates.x;
   board_tile.position.y = node.coordinates.y;
-  board_tile.zOrder = 1;
   stage.addChild(board_tile);
 }
 
@@ -85,8 +82,8 @@ Board.prototype.destroy = function() {
 
 Board.prototype.fall = function(sprite, coordinates) {
   sprite.position.x = coordinates.x
-  if (sprite.position.y < coordinates.y) {
-    sprite.position.y += 8;
+  if (sprite.position.y < coordinates.y - 12) {
+    sprite.position.y *= 1.035;
   } else {
     sprite.position.y = coordinates.y;
     dropPieceSoundEffect.play();
@@ -97,6 +94,7 @@ Board.prototype.fall = function(sprite, coordinates) {
 
 Board.prototype.dropPiece = function(mouse, sprite) {
   var column = Math.ceil(mouse.x / 64);
+  console.log('column:',column);
   var currentPlayer = this.currentPlayer;
   var startingNode = this.nodes[`1${column}`];
   if (startingNode.contents !== 'empty') { return };
@@ -111,22 +109,23 @@ Board.prototype.dropPiece = function(mouse, sprite) {
       this.check(node, 'vertical');
       this.check(node, 'right_diagonal');
       this.check(node, 'left_diagonal');
+      if (this.currentPlayer === 'one') {
+        if (this.opponentBlockFour(node) === false) {
+          this.opponentRandom();
+        }
+      }
       return;
     }
-    drop(node.vertical.down);
+    drop.call(this, node.vertical.down);
   };
 
   drop(startingNode);
-  this.switchPlayers();
-  this.floatSprite(this.currentPlayer);
 };
 
 Board.prototype.floatSprite = function(player_string) {
   var player = new PIXI.Sprite(textures[`player_${player_string}_texture`]);
   player.anchor.x = 0.5;
   player.anchor.y = 0.5;
-  player.scale.x = 0.5;
-  player.scale.y = 0.5;
   player.position.x = -100;
   player.position.y = 240;
   this.currentSprite = player;
