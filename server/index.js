@@ -8,6 +8,13 @@ var options = {
 }
 
 app.use('/', express.static(`${__dirname}/../public/`));
-app.use('/api', ExpressPeerServer(server, options));
 
-var server = app.listen(port, () => console.log(`Listening on port ${port}`));
+var server = require('http').createServer(app);
+
+app.use('/peerjs', ExpressPeerServer(server, options));
+
+server.listen(9000);
+
+server.on('connection', function(id) {
+  console.log('connected');
+});
